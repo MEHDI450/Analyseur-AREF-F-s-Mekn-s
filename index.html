@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>Analyseur AREF - Suivi des Résultats</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; padding: 20px; background-color: #e9ecef; margin: 0; direction: rtl; }
+        
+        /* Les boutons et commandes en haut (Ne seront pas dans l'image téléchargée) */
+        .controls { text-align: center; margin-bottom: 20px; background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .btn { padding: 10px 20px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 14px; margin: 5px; transition: 0.2s; color: white; display: inline-block; }
+        .btn-blue { background: #0056b3; }
+        .btn-green { background: #28a745; display: none; }
+        .btn-orange { background: #fd7e14; display: none; }
+        .btn:hover { opacity: 0.8; }
+
+        /* --- LA ZONE QUI SERA CAPTURÉE EN IMAGE --- */
+        #capture-area { 
+            background: white; 
+            max-width: 1000px; 
+            margin: 0 auto; 
+            padding: 40px; 
+            border-radius: 0px; /* Pas de bordure arrondie pour un vrai document */
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); 
+        }
+
+        /* L'en-tête officiel */
+        .official-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #0056b3; padding-bottom: 20px; margin-bottom: 30px; }
+        .logo { height: 80px; object-fit: contain; }
+        .header-titles { text-align: center; flex-grow: 1; }
+        .header-titles h1 { font-size: 20px; margin: 0 0 5px 0; color: #111; }
+        .header-titles h2 { font-size: 16px; margin: 0; color: #0056b3; }
+
+        /* Le conteneur du graphique */
+        .chart-container { height: 450px; width: 100%; margin-bottom: 20px; }
+
+        /* La zone de texte modifiable par l'utilisateur */
+        .editable-notes { width: 100%; margin-top: 20px; }
+        .editable-notes textarea {
+            width: 100%;
+            height: 80px;
+            padding: 10px;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            border: 1px dashed #ccc;
+            border-radius: 5px;
+            resize: none;
+            text-align: right;
+            background-color: #fcfcfc;
+        }
+        /* Quand on prend la photo, on enlève la bordure du champ texte pour faire propre */
+        .capturing textarea { border: none !important; background: transparent !important; }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <input type="file" id="fileInput" accept=".xlsx, .xls" style="display:none" />
+        <button class="btn btn-blue" onclick="document.getElementById('fileInput').click()">📂 1. اختيار ملف اكسيل (Sélectionner Excel)</button>
+        <span id="fileName" style="color: #666; margin-right: 15px; font-size: 14px;"></span>
+        <br><br>
+        <button id="exportBtn" class="btn btn-green">📊 2. تصدير النتائج (Excel)</button>
+        <button id="downloadImgBtn" class="btn btn-orange">🖼️ 3. تحميل التقرير كصورة (Télécharger l'image)</button>
+    </div>
+
+    <div id="capture-area">
+        
+        <div class="official-header">
+            <img src="Coat_of_arms_of_Morocco.png" alt="Royaume du Maroc" class="logo" style="width: 150px;">
+            
+            <div class="header-titles">
+                <h1>مسك نتائج التحقق (التعليم الصريح)</h1>
+                <h2>نسبة الإنجاز حسب المديريات الإقليمية</h2>
+            </div>
+
+            <img src="logo_rdv.png" alt="AREF Fès-Meknès" class="logo" style="width: 150px;">
+        </div>
+
+        <div class="chart-container">
+            <canvas id="myChart"></canvas>
+        </div>
+
+        <div class="editable-notes">
+            <textarea id="userNotes" placeholder="اكتب ملاحظاتك أو تعليقك هنا قبل تحميل الصورة... (هذا النص قابل للتعديل)"></textarea>
+        </div>
+
+    </div>
+
+    <script src="./renderer.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+{
+  "name": "analyseur-aref",
+  "productName": "Analyseur AREF",
+  "version": "1.0.0",
+  "description": "Application professionnelle de suivi et d'analyse des résultats pour l'AREF Fès-Meknès",
+  "main": "main.js",
+  "author": {
+    "name": "Mehdi Boutmizgida",
+    "email": "boutmizgidam@gmail.com"
+  },
+  "copyright": "Copyright © 2026 Mehdi Boutmizgida. Tous droits réservés.",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --win"
+  },
+"build": {
+    "appId": "com.aref.analyseur.mehdiboutmizgida",
+    "productName": "Analyseur AREF",
+    "win": {
+      "target": ["nsis"],
+      "icon": "logo_aref.png"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "artifactName": "Analyseur_AREF_Setup_1.0.0.exe"
+    },
+    "directories": {
+      "output": "dist"
+    }
+  },
+    "dependencies": {
+    "chart.js": "^4.4.2",
+    "html2canvas": "^1.4.1",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "electron": "^29.1.0",
+    "electron-builder": "^24.13.3"
+  }
+}
